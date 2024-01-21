@@ -1,0 +1,70 @@
+import java.util.Scanner;
+public class CRCGenerator {
+public static void main(String[] args) {
+Scanner scanner = new Scanner(System.in);
+// Input variables
+int dataBits, inputData[], generatorBits, generator[], newDataBits[],
+remainder[], msb, i, j, k;
+// Accept the number of data bits from the user
+System.out.print("Enter the number of data bits: ");
+dataBits = scanner.nextInt();
+// Accept the number of generator bits from the user
+System.out.print("Enter the number of generator bits: ");
+generatorBits = scanner.nextInt();
+// Initialize arrays to store data bits and generator bits
+inputData = new int[dataBits + generatorBits];
+generator = new int[generatorBits];
+// Accept data bits from the user
+System.out.print("Enter data bits: ");
+for (i = 0; i < dataBits; i++)
+inputData[i] = scanner.nextInt();
+// Accept generator bits from the user
+System.out.print("Enter generator bits: ");
+for (j = 0; j < generatorBits; j++)
+generator[j] = scanner.nextInt();
+// Pad the remaining space in inputData with zeros
+for (i = 0; i < generatorBits - 1; i++)
+inputData[dataBits + i] = 0;
+// Initialize remainder array
+remainder = new int[generatorBits + dataBits];
+// Copy the initial data bits to the remainder array
+for (i = 0; i < generatorBits; i++)
+remainder[i] = inputData[i];
+// Initialize an array for intermediate XOR results
+newDataBits = new int[generatorBits];
+// Initialize loop variables
+for (i = 0; i < generatorBits; i++)
+newDataBits[i] = 0;
+// Perform CRC computation using XOR operations
+for (i = 0; i < dataBits; i++) {
+k = 0;
+msb = remainder[i];
+for (j = i; j < generatorBits + i; j++) {
+if (msb == 0)
+remainder[j] = xor(remainder[j], newDataBits[k]);
+else
+remainder[j] = xor(remainder[j], generator[k]);
+k++;
+}
+remainder[generatorBits + i] = inputData[generatorBits + i];
+}
+// Display the code bits added to the original data bits
+System.out.println("The code bits added are: ");
+for (i = dataBits; i < dataBits + generatorBits - 1; i++) {
+inputData[i] = remainder[i];
+System.out.print(inputData[i]);
+}
+// Display the final code data
+System.out.println("\nThe code data is: ");
+for (i = 0; i < dataBits + generatorBits - 1; i++) {
+System.out.print(inputData[i]);
+}
+}
+// XOR function
+public static int xor(int x, int y) {
+if (x == y)
+return 0;
+else
+return 1;
+}
+}
