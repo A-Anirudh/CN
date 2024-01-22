@@ -4,12 +4,12 @@ $ns trace-all $tf
 set nf [open p4.nam w]
 $ns namtrace-all $ns
 
-set n0 [new Node]
-set n1 [new Node]
-set n2 [new Node]
-set n3 [new Node]
-set n4 [new Node]
-set n5 [new Node]
+set n0 [$ns Node]
+set n1 [$ns Node]
+set n2 [$ns Node]
+set n3 [$ns Node]
+set n4 [$ns Node]
+set n5 [$ns Node]
 
 $ns make-lan "$n0 $n1 $n2 $n3 $n4" 100Mb 100ms LL Queue/DropTail Mac/802_3
 
