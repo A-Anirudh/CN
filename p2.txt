@@ -15,7 +15,7 @@ set n5 [$ns node]
 $ns duplex-link $n0 $n4 1000Mb 1ms DropTail
 $ns duplex-link $n1 $n4 50Mb 1ms DropTail
 $ns duplex-link $n2 $n4 2000Mb 1ms DropTail
-$ns duplex-link $n3 $n4 200MbMb 1ms DropTail
+$ns duplex-link $n3 $n4 200Mb 1ms DropTail
 $ns duplex-link $n4 $n5 1Mb 1ms DropTail
 
 set p1 [new Agent/Ping]
